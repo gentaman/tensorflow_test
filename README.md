@@ -8,13 +8,13 @@ Autoencoderの実装について以下のサイトを参考にしました。
 
 # Execution result
 誤差の推移  
-![loss graph](http://github.com/gentaman/tensorflow_test/images/loss)
+![loss graph](https//raw.github.com/wiki/gentaman/tensorflow_test/images/loss.png)
 
 最終的な重み  
-![a weight of encoder](.(http://github.com/gentaman/tensorflow_test/images/weight1)
+![a weight of encoder](http://github.com/gentaman/tensorflow_test/images/weight1.png)
 
-![a weight of encoder]((http://github.com/gentaman/tensorflow_test/images/weight2)
+![a weight of encoder](http://github.com/gentaman/tensorflow_test/images/weight2.png)
 
 ７を復元した結果  
-![inpout image]((http://github.com/gentaman/tensorflow_test/images/input7)
-![output image]((http://github.com/gentaman/tensorflow_test/images/output7)
+![inpout image](http://github.com/gentaman/tensorflow_test/images/input7.png)
+![output image](http://github.com/gentaman/tensorflow_test/images/output7.png)
