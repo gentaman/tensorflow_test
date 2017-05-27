@@ -7,8 +7,6 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
-import matplotlib.pyplot as plt
-
 
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 H =1000
@@ -64,15 +62,30 @@ sess.run(init)
 summary_writer = tf.summary.FileWriter('summarys/loss', graph_def=sess.graph_def)
 
 # Training
-for step in range(4000):
+epoch = 0
+i = 0
+n_epochs = 6000
+for step in range(n_epochs):
     batch_xs, batch_ys = mnist.train.next_batch(BATCH_SIZE)
+    
     sess.run(train_step, feed_dict={x: batch_xs, keep_prob: (1-DROP_OUT_RATE)})
     # Collect Summary
-    summary_op = tf.summary.merge_all()
-    summary_str = sess.run(summary_op, feed_dict={x: batch_xs, keep_prob: .5})
-    summary_writer.add_summary(summary_str, step)
+#    summary_op = tf.summary.merge_all()
+#    summary_str = sess.run(summary_op, feed_dict={x: batch_xs, keep_prob: .5})
+#    summary_writer.add_summary(summary_str, step)
     # Print Progress
     if step % 100 == 0:
         _data = sess.run([loss, KL_reg, KL], feed_dict={x: batch_xs, keep_prob: .5})
         print("loss {0} \t  KL regulazation {1}\t \n".format(_data[0], _data[1]))
+    if mnist.train.epochs_completed == epoch + 1:
+        losses = 0
+        batch_time = 0
+        while(mnist.validation.epochs_completed != epoch +1):
+            vali_x, _ = mnist.validation.next_batch(BATCH_SIZE)
+            summary_op = tf.summary.merge_all()
+            summary_str = sess.run(summary_op, feed_dict={x: batch_xs, keep_prob: .5})
+            summary_writer.add_summary(summary_str, i)
+            i += 1
+
+        epoch = mnist.train.epochs_completed
 
